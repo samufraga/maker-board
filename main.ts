@@ -19,18 +19,25 @@ enum MotorPick {
 //% color="#008800" weight=100 icon="\uf1ec" block="MAKER"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
-    //% block="ligar motor %motor"
-    //% group='Motor CC'
-    //% weight=0
-    //% duration.shadow=timePicker
-    //% speed.min=0 speed.max=60
-    //% expandableArgumentMode="enabled"
-    export function runMotor(motor: MotorPick) {
+
+    export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
-            
-            pins.digitalWritePin(DigitalPin.P0, 1)
+            if (direction == MotorDirection.Clockwise){
+                pins.digitalWritePin(DigitalPin.P12, 0)
+                pins.digitalWritePin(DigitalPin.P16, 1)
+            }else{
+                pins.digitalWritePin(DigitalPin.P12, 1)
+                pins.digitalWritePin(DigitalPin.P16, 0)
+            }
+        }else{
+            if (direction == MotorDirection.Clockwise) {
+                pins.digitalWritePin(DigitalPin.P14, 0)
+                pins.digitalWritePin(DigitalPin.P15, 1)
+            }else{
+                pins.digitalWritePin(DigitalPin.P14, 1)
+                pins.digitalWritePin(DigitalPin.P15, 0)                  
+            }
         }
-        else { pins.digitalWritePin(DigitalPin.P1, 1) }
     }
 
     //% block="parar motor %motor"
@@ -41,18 +48,25 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.digitalWritePin(DigitalPin.P0, 0) 
-            }
+            pins.digitalWritePin(DigitalPin.P12, 0)
+            pins.digitalWritePin(DigitalPin.P16, 0)
+        }
         else {
-            pins.digitalWritePin(DigitalPin.P1, 0)
-            }
+            pins.digitalWritePin(DigitalPin.P14, 0)
+            pins.digitalWritePin(DigitalPin.P15, 0)
+        }
     }
 
     //% block="mudar velocidade do motor %motor para %velocidade \\%"
     //% group='Motor CC'
     //% weight=50
     //% velocidade.min=0 velocidade.max=100
-    export function motorSpeed(motor: MotorPick, velocidade: number, ) {
+    export function motorSpeed(motor: MotorPick, velocidade: number) {
+        if (motor == MotorPick.MotorA){
+            pins.analogWritePin(AnalogPin.P8, 10*velocidade)
+        }else{
+            pins.analogWritePin(AnalogPin.P13, 10*velocidade)
+        }
 
     }
 
@@ -62,7 +76,13 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
     //% velocidade.min=0 velocidade.max=100
-    function setMotorRotation(motor:MotorPick, direction:MotorDirection, velocidade:number=null, duration:number=null) {
+    export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number = null, duration: number = null) {
+        runMotor(motor, direction)
+        motorSpeed(motor, velocidade)
+        if(duration) {
+            basic.pause(duration)
+            stopMotor(motor)
+        }
 
     }
 }
