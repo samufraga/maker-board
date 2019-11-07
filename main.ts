@@ -27,6 +27,7 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     export function runMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
+            
             pins.digitalWritePin(DigitalPin.P0, 1)
         }
         else { pins.digitalWritePin(DigitalPin.P1, 1) }
@@ -61,7 +62,7 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
     //% velocidade.min=0 velocidade.max=100
-    export function setMotorRotation(motor:MotorPick, direction:MotorDirection, velocidade:number=null, duration:number=null) {
+    function setMotorRotation(motor:MotorPick, direction:MotorDirection, velocidade:number=null, duration:number=null) {
 
     }
 }
