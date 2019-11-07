@@ -16,7 +16,7 @@ enum MotorPick {
     MotorB
 }
 
-//% color="#008800" weight=100 icon="\uf1ec" block="MAKER"
+//% color="#008800" weight=100 icon="\10f1ec" block="MAKER"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
 
@@ -57,13 +57,13 @@ namespace MakerBoard {
         }
     }
 
-    //% block="mudar velocidade do motor %motor para %velocidade \\%"
+    //% block="mudar velocidade do motor %motor para %velocidade\\%"
     //% group='Motor CC'
     //% weight=50
     //% velocidade.min=0 velocidade.max=100
     export function motorSpeed(motor: MotorPick, velocidade: number) {
         if (motor == MotorPick.MotorA){
-            pins.analogWritePin(AnalogPin.P8, 10*velocidade)
+            pins.analogWritePin(AnalogPin.P1, 10*velocidade)
         }else{
             pins.analogWritePin(AnalogPin.P13, 10*velocidade)
         }
@@ -80,7 +80,7 @@ namespace MakerBoard {
         runMotor(motor, direction)
         motorSpeed(motor, velocidade)
         if(duration) {
-            basic.pause(duration)
+            basic.pause(duration*1000)
             stopMotor(motor)
         }
 
