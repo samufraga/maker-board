@@ -16,26 +16,26 @@ enum MotorPick {
     MotorB
 }
 
-//% color="#008800" weight=100 icon="\10f1ec" block="MAKER"
+//% color="#008800" weight=100 icon="\uf085" block="MAKER"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
 
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
-            if (direction == MotorDirection.Clockwise){
+            if (direction == MotorDirection.Clockwise) {
                 pins.digitalWritePin(DigitalPin.P12, 0)
                 pins.digitalWritePin(DigitalPin.P16, 1)
-            }else{
+            } else {
                 pins.digitalWritePin(DigitalPin.P12, 1)
                 pins.digitalWritePin(DigitalPin.P16, 0)
             }
-        }else{
+        } else {
             if (direction == MotorDirection.Clockwise) {
                 pins.digitalWritePin(DigitalPin.P14, 0)
                 pins.digitalWritePin(DigitalPin.P15, 1)
-            }else{
+            } else {
                 pins.digitalWritePin(DigitalPin.P14, 1)
-                pins.digitalWritePin(DigitalPin.P15, 0)                  
+                pins.digitalWritePin(DigitalPin.P15, 0)
             }
         }
     }
@@ -62,10 +62,10 @@ namespace MakerBoard {
     //% weight=50
     //% velocidade.min=0 velocidade.max=100
     export function motorSpeed(motor: MotorPick, velocidade: number) {
-        if (motor == MotorPick.MotorA){
-            pins.analogWritePin(AnalogPin.P1, 10*velocidade)
-        }else{
-            pins.analogWritePin(AnalogPin.P13, 10*velocidade)
+        if (motor == MotorPick.MotorA) {
+            pins.analogWritePin(AnalogPin.P1, 10 * velocidade)
+        } else {
+            pins.analogWritePin(AnalogPin.P13, 10 * velocidade)
         }
 
     }
@@ -79,8 +79,8 @@ namespace MakerBoard {
     export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number = null, duration: number = null) {
         runMotor(motor, direction)
         motorSpeed(motor, velocidade)
-        if(duration) {
-            basic.pause(duration*1000)
+        if (duration) {
+            basic.pause(duration * 1000)
             stopMotor(motor)
         }
 
