@@ -25,10 +25,11 @@ namespace MakerBoard {
     //% duration.shadow=timePicker
     //% speed.min=0 speed.max=60
     //% expandableArgumentMode="enabled"
-    export function MotorOn(motor: MotorPick) {
-        if(motor==MotorPick.MotorA){
-            pins.digitalWritePin(DigitalPin.P0, 1)}
-        else{pins.digitalWritePin(DigitalPin.P1, 1)}
+    export function runMotor(motor: MotorPick) {
+        if (motor == MotorPick.MotorA) {
+            pins.digitalWritePin(DigitalPin.P0, 1)
+        }
+        else { pins.digitalWritePin(DigitalPin.P1, 1) }
     }
 
     //% block="parar motor %motor"
@@ -37,32 +38,30 @@ namespace MakerBoard {
     //% duration.shadow=timePicker
     //% speed.min=0 speed.max=60 speed.defl=-1
     //% expandableArgumentMode="enabled"
-    export function MotorOff(motor: MotorPick) {
-        if (motor == MotorPick.MotorA) { pins.digitalWritePin(DigitalPin.P0, 0) }
-        else { pins.digitalWritePin(DigitalPin.P1, 0) }
+    export function stopMotor(motor: MotorPick) {
+        if (motor == MotorPick.MotorA) {
+            pins.digitalWritePin(DigitalPin.P0, 0) 
+            }
+        else {
+            pins.digitalWritePin(DigitalPin.P1, 0)
+            }
     }
 
-    //% block="mudar velocidade do motor %motor para %velocidade"
+    //% block="mudar velocidade do motor %motor para %velocidade \\%"
     //% group='Motor CC'
     //% weight=50
     //% velocidade.min=0 velocidade.max=100
-    export function setMotorSpeed(motor: MotorPick, velocidade: number, ) {
+    export function motorSpeed(motor: MotorPick, velocidade: number, ) {
 
     }
 
-    //% block="GIRAR motor %motor no sentido %direction||com velocidade %velocidade \\%"
+    //% block="girar motor %motor no sentido %direction||com velocidade %velocidade \\% | durante %duration seg"
     //% group='Motor CC'
     //% weight=100
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
     //% velocidade.min=0 velocidade.max=100
-    export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number=null) {
-       
-    }
-    //% block="girar motor %motor sentido %direction || for %duration \\%ms"
-    //% duration.shadow=timePicker
-    //% expandableArgumentMode="toggle"
-    export function runMotor(direction: MotorDirection, duration: number) {
+    export function setMotorRotation(motor:MotorPick, direction:MotorDirection, velocidade:number=null, duration:number=null) {
 
     }
 }
