@@ -61,11 +61,12 @@ namespace MakerBoard {
     //% group='Motor CC'
     //% weight=50
     //% velocidade.min=0 velocidade.max=100
+    //% velocidade.shadow="speedPicker"
     export function motorSpeed(motor: MotorPick, velocidade: number) {
         if (motor == MotorPick.MotorA) {
-            pins.analogWritePin(AnalogPin.P1, 10 * velocidade)
+            pins.analogWritePin(AnalogPin.P8, 10*velocidade)
         } else {
-            pins.analogWritePin(AnalogPin.P13, 10 * velocidade)
+            pins.analogWritePin(AnalogPin.P13, 10*velocidade)
         }
 
     }
@@ -78,9 +79,11 @@ namespace MakerBoard {
     //% velocidade.min=0 velocidade.max=100
     export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number = null, duration: number = null) {
         runMotor(motor, direction)
-        motorSpeed(motor, velocidade)
+        if (velocidade) {
+            motorSpeed(motor, velocidade)
+        }
         if (duration) {
-            basic.pause(duration * 1000)
+            basic.pause(duration*1000)
             stopMotor(motor)
         }
 
