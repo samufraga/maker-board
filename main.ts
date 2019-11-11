@@ -42,7 +42,7 @@ namespace MakerBoard {
 
     //% block="parar motor %motor"
     //% group='Motor CC'
-    //% weight=90
+    //% weight=50
     //% duration.shadow=timePicker
     //% speed.min=0 speed.max=60 speed.defl=-1
     //% expandableArgumentMode="enabled"
@@ -57,11 +57,11 @@ namespace MakerBoard {
         }
     }
 
-    //% block="mudar velocidade do motor %motor para %velocidade\\%"
+    //% block="velocidade do motor %motor em %velocidade\\%"
     //% group='Motor CC'
-    //% weight=50
+    //% weight=0
     //% velocidade.min=0 velocidade.max=100
-    //% velocidade.shadow="speedPicker"
+
     export function motorSpeed(motor: MotorPick, velocidade: number) {
         if (motor == MotorPick.MotorA) {
             pins.analogWritePin(AnalogPin.P8, 10*velocidade)
@@ -71,7 +71,7 @@ namespace MakerBoard {
 
     }
 
-    //% block="girar motor %motor no sentido %direction||com velocidade %velocidade \\% | durante %duration seg"
+    //% block="girar motor %motor no sentido %direction||com velocidade %velocidade \\% | por %duration segundos"
     //% group='Motor CC'
     //% weight=100
     //% expandableArgumentMode="enabled"
