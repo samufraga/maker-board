@@ -39,7 +39,7 @@ namespace MakerBoard {
             }
         }
     }
-    /*
+    /**
      *Interrompe a rotação do motor
     */
 
@@ -59,7 +59,7 @@ namespace MakerBoard {
             pins.digitalWritePin(DigitalPin.P15, 0)
         }
     }
-    /*
+    /**
      *Altera a velocidade do motor para um valor entre 0 e 100%
     */
     //% block="velocidade do motor %motor em %velocidade\\%"
