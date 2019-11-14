@@ -40,7 +40,7 @@ namespace MakerBoard {
         }
     }
     /**
-     *Interrompe a rotação do motor
+     * Interrompe a rotação do motor
     */
 
     //% block="parar motor %motor"
@@ -60,7 +60,7 @@ namespace MakerBoard {
         }
     }
     /**
-     *Altera a velocidade do motor para um valor entre 0 e 100%
+     * Altera a velocidade do motor para um valor entre 0 e 100%
     */
     //% block="velocidade do motor %motor em %velocidade\\%"
     //% group='Motor CC'
@@ -69,13 +69,16 @@ namespace MakerBoard {
 
     export function motorSpeed(motor: MotorPick, velocidade: number) {
         if (motor == MotorPick.MotorA) {
-            pins.analogWritePin(AnalogPin.P8, 10*velocidade)
+            pins.analogWritePin(AnalogPin.P8, 10 * velocidade)
         } else {
-            pins.analogWritePin(AnalogPin.P13, 10*velocidade)
+            pins.analogWritePin(AnalogPin.P13, 10 * velocidade)
         }
 
     }
 
+    /**
+     * Liga o motor no sentido escolhido com velocidade e duração opcionais
+     */
     //% block="girar motor %motor no sentido %direction||com velocidade %velocidade \\% | por %duration segundos"
     //% group='Motor CC'
     //% weight=100
@@ -84,11 +87,11 @@ namespace MakerBoard {
     //% velocidade.min=0 velocidade.max=100
     export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number = null, duration: number = null) {
         runMotor(motor, direction)
-        if (velocidade) {
+        if (velocidade!=null) {
             motorSpeed(motor, velocidade)
         }
         if (duration) {
-            basic.pause(duration*1000)
+            basic.pause(duration * 1000)
             stopMotor(motor)
         }
 
