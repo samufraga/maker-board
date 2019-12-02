@@ -79,7 +79,7 @@ namespace MakerBoard {
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor no sentido %direction||com velocidade %velocidade \\% | por %duration segundos"
+    //% block="girar motor %motor no sentido %direction||com velocidade %velocidade|\\%| por %duration segundos"
     //% group='Motor CC'
     //% weight=100
     //% expandableArgumentMode="enabled"
@@ -87,7 +87,7 @@ namespace MakerBoard {
     //% velocidade.min=0 velocidade.max=100
     export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number = null, duration: number = null) {
         runMotor(motor, direction)
-        if (velocidade!=null) {
+        if (velocidade != null) {
             motorSpeed(motor, velocidade)
         }
         if (duration) {
