@@ -51,8 +51,8 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.digitalWritePin(DigitalPin.P12, 1)
-            pins.digitalWritePin(DigitalPin.P16, 1)
+            pins.digitalWritePin(DigitalPin.P12, 0)
+            pins.digitalWritePin(DigitalPin.P16, 0)
         }
         else {
             pins.digitalWritePin(DigitalPin.P14, 0)
