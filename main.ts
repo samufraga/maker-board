@@ -51,8 +51,8 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.digitalWritePin(DigitalPin.P12, 0)
-            pins.digitalWritePin(DigitalPin.P16, 0)
+            pins.digitalWritePin(DigitalPin.P12, 1)
+            pins.digitalWritePin(DigitalPin.P16, 1)
         }
         else {
             pins.digitalWritePin(DigitalPin.P14, 0)
@@ -79,7 +79,7 @@ namespace MakerBoard {
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor no sentido %direction||com velocidade %velocidade|\\%| por %duration segundos"
+    //% block="girar motor %motor no sentido %direction || com velocidade %velocidade \\% | por %duration segundos"
     //% group='Motor CC'
     //% weight=100
     //% expandableArgumentMode="enabled"
