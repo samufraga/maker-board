@@ -15,11 +15,19 @@ enum MotorPick {
     //% block='B'
     MotorB
 }
+enum MoveUnit {
+    //% block="rotações"
+    Rotations,
+    //% block="graus"
+    Degrees,
+    //% block="segundos"
+    Seconds
+}
 
-//% color="#008800" weight=100 icon="\uf085" block="MAKER"
+//% color="#008800" weight=100 icon="\uf085" block="Escola 4.0"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
-
+    
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
             if (direction == MotorDirection.Clockwise) {
@@ -40,15 +48,31 @@ namespace MakerBoard {
         }
     }
     /**
-     * Interrompe a rotação do motor
-    */
-
-    //% block="parar motor %motor"
-    //% group='Motor CC'
-    //% weight=50
-    //% duration.shadow=timePicker
-    //% speed.min=0 speed.max=60 speed.defl=-1
+     * Liga o motor no sentido escolhido com velocidade e duração opcionais
+     */
+    //% block="girar motor %motor no sentido %direction || com velocidade %speed \\% | por %duration segundos"
+    //% group='Motor Contínuo'
+    //% weight=100
     //% expandableArgumentMode="enabled"
+    //% inlineInputMode=inline
+    //% speed.min=0 speed.max=100
+    export function setMotorRotation(motor: MotorPick, direction: MotorDirection, speed: number = null, duration: number = null) {
+        runMotor(motor, direction)
+        if (speed != null) {
+            motorSpeed(motor, speed)
+        }
+        if (duration) {
+            basic.pause(duration * 1000)
+            stopMotor(motor)
+        }
+    }
+    
+    /**
+     * Interrompe a rotação do motor
+     */
+    //% block="parar motor %motor"
+    //% group='Motor Contínuo'
+    //% weight=50
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
             pins.digitalWritePin(DigitalPin.P12, 0)
@@ -61,39 +85,36 @@ namespace MakerBoard {
     }
     /**
      * Altera a velocidade do motor para um valor entre 0 e 100%
-    */
-    //% block="velocidade do motor %motor em %velocidade\\%"
-    //% group='Motor CC'
-    //% weight=0
-    //% velocidade.min=0 velocidade.max=100
-
-    export function motorSpeed(motor: MotorPick, velocidade: number) {
-        if (motor == MotorPick.MotorA) {
-            pins.analogWritePin(AnalogPin.P8, 10 * velocidade)
-        } else {
-            pins.analogWritePin(AnalogPin.P13, 10 * velocidade)
-        }
-
-    }
-
-    /**
-     * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor no sentido %direction || com velocidade %velocidade \\% | por %duration segundos"
-    //% group='Motor CC'
+    //% block="velocidade do motor %motor em %speed\\%"
+    //% group='Motor Contínuo'
+    //% weight=0
+    //% speed.min=0 speed.max=100
+    export function motorSpeed(motor: MotorPick, speed: number) {
+        if (motor == MotorPick.MotorA) {
+            pins.analogWritePin(AnalogPin.P8, 10 * speed)
+        } else {
+            pins.analogWritePin(AnalogPin.P13, 10 * speed)
+        }
+    }
+}
+ 
+    /**
+     * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
+     */
+    //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
+    //% group='Servo Motor'
     //% weight=100
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
     //% velocidade.min=0 velocidade.max=100
-    export function setMotorRotation(motor: MotorPick, direction: MotorDirection, velocidade: number = null, duration: number = null) {
+    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Seconds) {
         runMotor(motor, direction)
-        if (velocidade != null) {
-            motorSpeed(motor, velocidade)
+        if (speed != null) {
+            motorSpeed(motor, speed)
         }
         if (duration) {
             basic.pause(duration * 1000)
             stopMotor(motor)
         }
-
     }
-}
