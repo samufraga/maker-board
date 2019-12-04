@@ -12,7 +12,7 @@ enum MotorDirection {
 enum MotorPick {
     //% block="A"
     MotorA,
-    //% block='B'
+    //% block="B"
     MotorB
 }
 enum MoveUnit {
@@ -27,7 +27,7 @@ enum MoveUnit {
 //% color="#008800" weight=100 icon="\uf085" block="Escola 4.0"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
-    
+
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
             if (direction == MotorDirection.Clockwise) {
@@ -66,7 +66,7 @@ namespace MakerBoard {
             stopMotor(motor)
         }
     }
-    
+
     /**
      * Interrompe a rotação do motor
      */
@@ -98,23 +98,23 @@ namespace MakerBoard {
         }
     }
 }
- 
-    /**
-     * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
-     */
-    //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
-    //% group='Servo Motor'
-    //% weight=100
-    //% expandableArgumentMode="enabled"
-    //% inlineInputMode=inline
-    //% velocidade.min=0 velocidade.max=100
-    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Seconds) {
-        runMotor(motor, direction)
-        if (speed != null) {
-            motorSpeed(motor, speed)
-        }
-        if (duration) {
-            basic.pause(duration * 1000)
-            stopMotor(motor)
-        }
+
+/**
+ * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
+ */
+//% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
+//% group='Servo Motor'
+//% weight=100
+//% expandableArgumentMode="enabled"
+//% inlineInputMode=inline
+//% velocidade.min=0 velocidade.max=100
+export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Seconds) {
+    runMotor(motor, direction)
+    if (speed != null) {
+        motorSpeed(motor, speed)
     }
+    if (duration) {
+        basic.pause(duration * 1000)
+        stopMotor(motor)
+    }
+}
