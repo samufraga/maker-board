@@ -50,7 +50,7 @@ namespace MakerBoard {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P0, PinEventType.None)
-            MakerBoard.stopMotor(MotorPick.MotorA) 
+            MakerBoard.stopMotor(MotorPick.MotorA)
         }
     })
     /**
@@ -81,12 +81,12 @@ namespace MakerBoard {
     //% weight=50
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.digitalWritePin(DigitalPin.P12, 0)
-            pins.digitalWritePin(DigitalPin.P16, 0)
+            pins.digitalWritePin(DigitalPin.P12, 1)
+            pins.digitalWritePin(DigitalPin.P16, 1)
         }
         else {
-            pins.digitalWritePin(DigitalPin.P14, 0)
-            pins.digitalWritePin(DigitalPin.P15, 0)
+            pins.digitalWritePin(DigitalPin.P14, 1)
+            pins.digitalWritePin(DigitalPin.P15, 1)
         }
     }
     /**
@@ -120,7 +120,7 @@ namespace MakerBoard {
             motorSpeed(motor, speed)
         }
         if (value != null) {
-            switch(unit){
+            switch (unit) {
                 case MoveUnit.Rotations:
                     MotorCounter = 0
                     MotorCounterMax = value * 20 - 2
