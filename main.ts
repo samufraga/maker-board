@@ -27,7 +27,8 @@ enum MoveUnit {
 //% color="#008800" weight=100 icon="\uf085" block="Escola 4.0"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
-
+    let MotorCounter = 0
+    let MotorCounterMax = 0
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
             if (direction == MotorDirection.Clockwise) {
@@ -47,10 +48,16 @@ namespace MakerBoard {
             }
         }
     }
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P0, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P0, PinEventType.None)   
+        }
+    })
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor no sentido %direction || com velocidade %speed \\% | por %duration segundos"
+    //% block="girar motor %motor no sentido %direction || com velocidade %speed \\% por %duration segundos"
     //% group='Motor Contínuo'
     //% weight=100
     //% expandableArgumentMode="enabled"
@@ -99,21 +106,21 @@ namespace MakerBoard {
     }
 
     /**
-     * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
+     * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar servo motor %motor no sentido %direction com velocidade %speed \\% || por %value %unit"
+    //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %duration %unit"
     //% group='Servo Motor'
     //% weight=100
     //% expandableArgumentMode="toggle"
     //% inlineInputMode=inline
     //% speed.min=0 speed.max=100
-    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Seconds) {
+    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, duration: number = null, unit: MoveUnit = MoveUnit.Seconds) {
         runMotor(motor, direction)
         if (speed != null) {
             motorSpeed(motor, speed)
         }
-        if (value) {
-            basic.pause(value * 1000)
+        if (duration) {
+            basic.pause(duration * 1000)
             stopMotor(motor)
         }
     }
