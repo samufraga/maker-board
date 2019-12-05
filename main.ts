@@ -97,24 +97,24 @@ namespace MakerBoard {
             pins.analogWritePin(AnalogPin.P13, 10 * speed)
         }
     }
-}
 
-/**
- * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
- */
-//% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
-//% group='Servo Motor'
-//% weight=100
-//% expandableArgumentMode="enabled"
-//% inlineInputMode=inline
-//% velocidade.min=0 velocidade.max=100
-export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Seconds) {
-    runMotor(motor, direction)
-    if (speed != null) {
-        motorSpeed(motor, speed)
-    }
-    if (duration) {
-        basic.pause(duration * 1000)
-        stopMotor(motor)
+    /**
+     * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
+     */
+    //% block="girar servo motor %motor no sentido %direction com velocidade %speed \\% || por %value %unit"
+    //% group='Servo Motor'
+    //% weight=100
+    //% expandableArgumentMode="toggle"
+    //% inlineInputMode=inline
+    //% speed.min=0 speed.max=100
+    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Seconds) {
+        runMotor(motor, direction)
+        if (speed != null) {
+            motorSpeed(motor, speed)
+        }
+        if (value) {
+            basic.pause(value * 1000)
+            stopMotor(motor)
+        }
     }
 }
