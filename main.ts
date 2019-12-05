@@ -18,8 +18,6 @@ enum MotorPick {
 enum MoveUnit {
     //% block="rotações"
     Rotations,
-    //% block="graus"
-    Degrees,
     //% block="segundos"
     Seconds
 }
@@ -51,7 +49,8 @@ namespace MakerBoard {
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P0, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
-            pins.setEvents(DigitalPin.P0, PinEventType.None)   
+            pins.setEvents(DigitalPin.P0, PinEventType.None)
+            MakerBoard.stopMotor(MotorPick.MotorA) 
         }
     })
     /**
@@ -108,20 +107,34 @@ namespace MakerBoard {
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %duration %unit"
+    //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
     //% group='Servo Motor'
     //% weight=100
     //% expandableArgumentMode="toggle"
     //% inlineInputMode=inline
     //% speed.min=0 speed.max=100
-    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, duration: number = null, unit: MoveUnit = MoveUnit.Seconds) {
-        runMotor(motor, direction)
+    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
+        pins.setPull(DigitalPin.P0, PinPullMode.PullNone)
+        pins.setEvents(DigitalPin.P0, PinEventType.Edge)
         if (speed != null) {
             motorSpeed(motor, speed)
         }
-        if (duration) {
-            basic.pause(duration * 1000)
-            stopMotor(motor)
+        if (value != null) {
+            switch(unit){
+                case MoveUnit.Rotations:
+                    MotorCounter = 0
+                    MotorCounterMax = value * 20 - 2
+                    runMotor(motor, direction)
+                    while (MotorCounter < MotorCounterMax) {
+                        basic.pause(1)
+                    }
+                    break;
+                case MoveUnit.Seconds:
+                    runMotor(motor, direction)
+                    basic.pause(value * 1000)
+                    stopMotor(motor)
+                    break;
+            }
         }
     }
 }
