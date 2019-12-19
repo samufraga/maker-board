@@ -24,13 +24,21 @@ enum MoveUnit {
 
 enum ServoDegrees{
     //%block="45°"
+    d45=1,
     //%block="90°"
+    d90=2,
     //%block="135°"
+    d135=3,
     //%block="180°"
+    d180=4,
     //%block="225°"
+    d225=5,
     //%block="270°"
+    d270=6,
     //%block="315°"
+    d315=7,
     //%block="360°"
+    d60=8
 }
 
 //% color="#008800" weight=100 icon="\f085" block="Escola 4.0"
@@ -118,7 +126,7 @@ namespace MakerBoard {
     }
 
     /**
-     * Liga o motor no sentido escolhido com velocidade e duração opcionais
+     * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
      */
     //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
     //% group='Servo Motor'
@@ -126,7 +134,7 @@ namespace MakerBoard {
     //% expandableArgumentMode="toggle"
     //% inlineInputMode=inline
     //% speed.min=0 speed.max=100
-    export function setServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
+    export function runServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
         pins.setPull(DigitalPin.P0, PinPullMode.PullNone)
         pins.setEvents(DigitalPin.P0, PinEventType.Edge)
         if (speed != null) {
@@ -136,7 +144,7 @@ namespace MakerBoard {
             switch (unit) {
                 case MoveUnit.Rotations:
                     MotorCounter = 0
-                    MotorCounterMax = value * 20 - 2
+                    MotorCounterMax = value * 80 - 8
                     runMotor(motor, direction)
                     while (MotorCounter < MotorCounterMax) {
                         basic.pause(1)
@@ -149,5 +157,13 @@ namespace MakerBoard {
                     break;
             }
         }
+    }
+    /**
+     * Graus de rotação do servo motor
+     */
+    //%block="girar servo motor %degrees"
+    //% group='Servo Motor'
+    export function runServoDegrees() {
+        
     }
 }
