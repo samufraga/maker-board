@@ -75,7 +75,7 @@ namespace MakerBoard {
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor no sentido %direction || com velocidade %speed \\% por %duration segundos"
+    //% block="girar motor %motor no sentido %direction || com velocidade %speed \\%|por %duration segundos"
     //% group='Motor Contínuo'
     //% weight=100
     //% expandableArgumentMode="enabled"
@@ -131,7 +131,7 @@ namespace MakerBoard {
     //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
     //% group='Servo Motor'
     //% weight=100
-    //% expandableArgumentMode="toggle"
+    //% expandableArgumentMode="enable"
     //% inlineInputMode=inline
     //% speed.min=0 speed.max=100
     export function runServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
@@ -162,7 +162,7 @@ namespace MakerBoard {
      * Graus de rotação do servo motor
      */
     //%block="girar servo motor %degrees"
-    //% group='Servo Motor'
+    //%group='Servo Motor'
     export function runServoDegrees(degrees: ServoDegrees) {
         
     }
