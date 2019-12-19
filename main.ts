@@ -22,6 +22,17 @@ enum MoveUnit {
     Seconds
 }
 
+enum ServoDegrees{
+    //%block="45°"
+    //%block="90°"
+    //%block="135°"
+    //%block="180°"
+    //%block="225°"
+    //%block="270°"
+    //%block="315°"
+    //%block="360°"
+}
+
 //% color="#008800" weight=100 icon="\f085" block="Escola 4.0"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
@@ -83,10 +94,12 @@ namespace MakerBoard {
         if (motor == MotorPick.MotorA) {
             pins.digitalWritePin(DigitalPin.P12, 1)
             pins.digitalWritePin(DigitalPin.P16, 1)
+            pins.digitalWritePin(DigitalPin.P8, 1)
         }
         else {
             pins.digitalWritePin(DigitalPin.P14, 1)
             pins.digitalWritePin(DigitalPin.P15, 1)
+            pins.digitalWritePin(DigitalPin.P13, 13)
         }
     }
     /**
