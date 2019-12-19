@@ -22,23 +22,23 @@ enum MoveUnit {
     Seconds
 }
 
-enum ServoDegrees{
+enum ServoDegrees {
     //%block="45°"
-    d45=1,
+    d45 = 1,
     //%block="90°"
-    d90=2,
+    d90 = 2,
     //%block="135°"
-    d135=3,
+    d135 = 3,
     //%block="180°"
-    d180=4,
+    d180 = 4,
     //%block="225°"
-    d225=5,
+    d225 = 5,
     //%block="270°"
-    d270=6,
+    d270 = 6,
     //%block="315°"
-    d315=7,
+    d315 = 7,
     //%block="360°"
-    d60=8
+    d60 = 8
 }
 
 //% color="#008800" weight=100 icon="\f085" block="Escola 4.0"
@@ -164,6 +164,6 @@ namespace MakerBoard {
     //%block="girar servo motor %degrees"
     //%group='Servo Motor'
     export function runServoDegrees(degrees: ServoDegrees) {
-        
+
     }
 }
