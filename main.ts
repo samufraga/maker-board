@@ -22,7 +22,7 @@ enum MoveUnit {
     Seconds
 }
 
-//% color="#008800" weight=100 icon="\uf085" block="Escola 4.0"
+//% color="#008800" weight=100 icon="\f6d3" block="Escola 4.0"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
     let MotorCounter = 0
