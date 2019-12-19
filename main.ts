@@ -163,7 +163,7 @@ namespace MakerBoard {
      */
     //%block="girar servo motor %degrees"
     //% group='Servo Motor'
-    export function runServoDegrees() {
+    export function runServoDegrees(degrees: ServoDegrees) {
         
     }
 }
