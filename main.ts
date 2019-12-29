@@ -135,16 +135,15 @@ namespace MakerBoard {
     /**
      * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar servo motor %motor no sentido %direction || com velocidade %speed \\% | por %value %unit"
+    //% block="girar servo motor %motor com velocidade %speed\\% | por %value %unit"
     //% group='Servo Motor'
     //% weight=100
-    //% expandableArgumentMode="enable"
-    //% inlineInputMode=inline
-    //% speed.min=0 speed.max=100
-    export function runServoMotor(motor: MotorPick, direction: MotorDirection, speed: number = null, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
+    //% expandableArgumentMode="toggle"
+    //% speed.shadow="speedPicker"
+    export function runServoMotor(motor: MotorPick, speed: number, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
         pins.setPull(DigitalPin.P0, PinPullMode.PullNone)
         pins.setEvents(DigitalPin.P0, PinEventType.Edge)
-        if (speed != null) {
+        if (speed > 0) {
             motorSpeed(motor, speed)
         }
         if (value != null) {
