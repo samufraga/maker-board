@@ -41,7 +41,7 @@ enum ServoDegrees {
     d60 = 8
 }
 
-//% color="#008800" weight=100 icon="\f085" block="Escola 4.0"
+//% color="#008800" weight=100 icon="f085" block="Escola 4.0"
 //% groups=['Motor Contínuo', 'Servo Motor']
 namespace MakerBoard {
     let MotorCounter = 0
@@ -75,21 +75,14 @@ namespace MakerBoard {
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor no sentido %direction || com velocidade %speed \\%|por %duration segundos"
+    //% block="girar motor %motor com velocidade %speed \\% | por %duration segundos"
     //% group='Motor Contínuo'
     //% weight=100
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
-    //% speed.min=0 speed.max=100
-    export function setMotorRotation(motor: MotorPick, direction: MotorDirection, speed: number = null, duration: number = null) {
-        runMotor(motor, direction)
-        if (speed != null) {
-            motorSpeed(motor, speed)
-        }
-        if (duration) {
-            basic.pause(duration * 1000)
-            stopMotor(motor)
-        }
+    //% speed.shadow="speedPicker"
+    export function setMotorRotation(motor: MotorPick, speed: number, duration: number = null) {
+        basic.showNumber(speed)
     }
 
     /**
