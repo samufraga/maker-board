@@ -46,9 +46,9 @@ enum ServoDegrees {
 namespace MakerBoard {
     let MotorCounter = 0
     let MotorCounterMax = 0
-    export function runMotor(motor: MotorPick, direction: MotorDirection) {
+    export function runMotor(motor: MotorPick, speed: number) {
         if (motor == MotorPick.MotorA) {
-            if (direction == MotorDirection.Clockwise) {
+            if (speed > 0) {
                 pins.digitalWritePin(DigitalPin.P12, 0)
                 pins.digitalWritePin(DigitalPin.P16, 1)
             } else {
@@ -56,7 +56,7 @@ namespace MakerBoard {
                 pins.digitalWritePin(DigitalPin.P16, 0)
             }
         } else {
-            if (direction == MotorDirection.Clockwise) {
+            if (speed > 0) {
                 pins.digitalWritePin(DigitalPin.P14, 0)
                 pins.digitalWritePin(DigitalPin.P15, 1)
             } else {
@@ -75,14 +75,14 @@ namespace MakerBoard {
     /**
      * Liga o motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar motor %motor com velocidade %speed \\% | por %duration segundos"
+    //% block="girar motor %motor com velocidade %speed\\% || por %duration segundos"
     //% group='Motor Contínuo'
     //% weight=100
     //% expandableArgumentMode="enabled"
-    //% inlineInputMode=inline
     //% speed.shadow="speedPicker"
-    export function setMotorRotation(motor: MotorPick, speed: number, duration: number = null) {
-        basic.showNumber(speed)
+    export function setMotorRotation(motor: MotorPick, speed: number, duration: number = 0) {
+        motorSpeed(motor, Math.abs(speed))
+        runMotor(motor, speed)
     }
 
     /**
