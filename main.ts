@@ -41,13 +41,6 @@ enum ServoDegrees {
     d60 = 8
 }
 
-enum MathSign {
-    //%block="+"
-    Positive,
-    //%block="-"
-    Negative
-}
-
 //% color="#008800" weight=100 icon="\uf1b0" block="Escola 4.0"
 //% groups=['Motores', 'Servo Motor']
 namespace MakerBoard {
@@ -79,6 +72,31 @@ namespace MakerBoard {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P0, PinEventType.None)
+            pins.setEvents(DigitalPin.P1, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P0, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P0, PinEventType.None)
+            pins.setEvents(DigitalPin.P1, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P1, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P0, PinEventType.None)
+            pins.setEvents(DigitalPin.P1, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P1, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P0, PinEventType.None)
+            pins.setEvents(DigitalPin.P1, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
@@ -100,7 +118,7 @@ namespace MakerBoard {
         } else {
             runMotor(motor, MotorDirection.CounterClockwise)
         }
-        if(duration != 0){
+        if (duration != 0) {
             basic.pause(duration * 1000)
             stopMotor(motor)
         }
@@ -138,15 +156,17 @@ namespace MakerBoard {
     }
 
     /**
-     * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
+     * Gira o servo motor por uma quantidade limitada de rotações
      */
     //% block="girar servo motor %motor por %value rotações com velocidade %speed\\%"
     //% group='Servo Motor'     weight=100
     //% expandableArgumentMode="toggle"     inlineInputMode=inline
     //% speed.shadow="speedPicker"
-    export function runServoMotor(motor: MotorPick, speed: number, value: number = 0) {
+    export function runServoMotor(motor: MotorPick, value: number = 0, speed: number) {
         pins.setPull(DigitalPin.P0, PinPullMode.PullNone)
         pins.setEvents(DigitalPin.P0, PinEventType.Edge)
+        pins.setPull(DigitalPin.P1, PinPullMode.PullNone)
+        pins.setEvents(DigitalPin.P1, PinEventType.Edge)
         let direction
         if (speed > 0) {
             direction = MotorDirection.Clockwise
@@ -165,12 +185,12 @@ namespace MakerBoard {
         }
     }
     /**
-     * Graus de rotação do servo motor
+     * Gira o servo motor por uma quantidade limitada de graus
      */
     //%block="girar servo motor %motor %degrees com velocidade %speed\\%"
     //%group='Servo Motor'
     //%speed.shadow="speedPicker"
-    export function runServoDegrees(motor: MotorPick, degrees: ServoDegrees, speed:number) {
+    export function runServoDegrees(motor: MotorPick, degrees: ServoDegrees, speed: number) {
 
     }
 }
