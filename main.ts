@@ -68,12 +68,12 @@ namespace MakerBoard {
     }
 
     export function setServoSensor(motor: MotorPick) {
-        if(motor==MotorPick.MotorA){
+        if (motor == MotorPick.MotorA) {
             pins.setPull(DigitalPin.P8, PinPullMode.PullNone)
             pins.setPull(DigitalPin.P16, PinPullMode.PullNone)
             pins.setEvents(DigitalPin.P8, PinEventType.Edge)
             pins.setEvents(DigitalPin.P16, PinEventType.Edge)
-        }else{
+        } else {
             pins.setPull(DigitalPin.P19, PinPullMode.PullNone)
             pins.setPull(DigitalPin.P20, PinPullMode.PullNone)
             pins.setEvents(DigitalPin.P19, PinEventType.Edge)
@@ -114,7 +114,38 @@ namespace MakerBoard {
             stopMotor(MotorPick.MotorA)
         }
     })
-
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P19, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P19, PinEventType.None)
+            pins.setEvents(DigitalPin.P20, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P19, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P19, PinEventType.None)
+            pins.setEvents(DigitalPin.P20, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P20, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P19, PinEventType.None)
+            pins.setEvents(DigitalPin.P20, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P20, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
+            pins.setEvents(DigitalPin.P19, PinEventType.None)
+            pins.setEvents(DigitalPin.P20, PinEventType.None)
+            stopMotor(MotorPick.MotorA)
+        }
+    })
 
     /**
      * Gira o motor em uma dada velocidade por um tempo limitado (opcional). Se a velocidade for positiva,
