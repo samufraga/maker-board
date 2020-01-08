@@ -76,7 +76,7 @@ namespace MakerBoard {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P0, PinEventType.None)
-            MakerBoard.stopMotor(MotorPick.MotorA)
+            stopMotor(MotorPick.MotorA)
         }
     })
     /**
@@ -89,7 +89,7 @@ namespace MakerBoard {
     //% expandableArgumentMode="enabled"
     //% speed.shadow="speedPicker"
     //% duration.min=0
-    export function runContinMotor(motor: MotorPick, speed: number, duration: number = 0) {
+    export function runContMotor(motor: MotorPick, speed: number, duration: number = 0) {
         motorSpeed(motor, Math.abs(speed))
         if (speed > 0) {
             runMotor(motor, MotorDirection.Clockwise)
@@ -144,7 +144,9 @@ namespace MakerBoard {
         pins.setPull(DigitalPin.P0, PinPullMode.PullNone)
         pins.setEvents(DigitalPin.P0, PinEventType.Edge)
         if (speed > 0) {
-            motorSpeed(motor, speed)
+            let direction = MotorDirection.Clockwise
+        } else {
+            let direction = MotorDirection.CounterClockwise
         }
         if (value != null) {
             switch (unit) {
