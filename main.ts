@@ -49,10 +49,11 @@ enum MathSign {
 }
 
 //% color="#008800" weight=100 icon="\uf1b0" block="Escola 4.0"
-//% groups=['Motor Contínuo', 'Servo Motor']
+//% groups=['Motores', 'Servo Motor']
 namespace MakerBoard {
     let MotorCounter = 0
     let MotorCounterMax = 0
+
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
             if (direction == MotorDirection.Clockwise) {
@@ -72,6 +73,8 @@ namespace MakerBoard {
             }
         }
     }
+
+
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P0, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
@@ -79,14 +82,15 @@ namespace MakerBoard {
             stopMotor(MotorPick.MotorA)
         }
     })
+
+
     /**
      * Gira o motor em uma dada velocidade por um tempo limitado (opcional). Se a velocidade for positiva,
      * o motor gira em um sentido, se for negativa, o motor gira no sentido inverso
      */
     //% block="girar motor %motor com velocidade %speed\\% || por %duration segundos"
-    //% group='Motor Contínuo'
-    //% weight=100
-    //% expandableArgumentMode="enabled"
+    //% group='Motores'      weight=100
+    //% expandableArgumentMode="enabled"    inlineInputMode=inline
     //% speed.shadow="speedPicker"
     //% duration.min=0
     export function runContMotor(motor: MotorPick, speed: number, duration: number = 0) {
@@ -96,15 +100,17 @@ namespace MakerBoard {
         } else {
             runMotor(motor, MotorDirection.CounterClockwise)
         }
-        basic.pause(duration * 1000)
+        if(duration != 0){
+            basic.pause(duration * 1000)
+            stopMotor(motor)
+        }
     }
 
     /**
      * Interrompe a rotação do motor
      */
     //% block="parar motor %motor"
-    //% group='Motor Contínuo'
-    //% weight=50
+    //% group='Motores'      weight=50
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
             pins.digitalWritePin(DigitalPin.P12, 1)
@@ -120,9 +126,8 @@ namespace MakerBoard {
     /**
      * Altera a velocidade do motor para um valor entre 0 e 100% (sem alterar o sentido de rotação)
      */
-    //% block="velocidade do motor %motor em %velocidade\\%"
-    //% group='Motor Contínuo'
-    //% weight=0
+    // block="velocidade do motor %motor em %velocidade\\%"
+    //% group='Motores'      weight=0
     //% velocidade.min=0 velocidade.max=100
     export function motorSpeed(motor: MotorPick, velocidade: number) {
         if (motor == MotorPick.MotorA) {
@@ -135,43 +140,37 @@ namespace MakerBoard {
     /**
      * Liga o servo motor no sentido escolhido com velocidade e duração opcionais
      */
-    //% block="girar servo motor %motor com velocidade %speed\\% | por %value %unit"
-    //% group='Servo Motor'
-    //% weight=100
-    //% expandableArgumentMode="toggle"
+    //% block="girar servo motor %motor por %value rotações com velocidade %speed\\%"
+    //% group='Servo Motor'     weight=100
+    //% expandableArgumentMode="toggle"     inlineInputMode=inline
     //% speed.shadow="speedPicker"
-    export function runServoMotor(motor: MotorPick, speed: number, value: number = null, unit: MoveUnit = MoveUnit.Rotations) {
+    export function runServoMotor(motor: MotorPick, speed: number, value: number = 0) {
         pins.setPull(DigitalPin.P0, PinPullMode.PullNone)
         pins.setEvents(DigitalPin.P0, PinEventType.Edge)
+        let direction
         if (speed > 0) {
-            let direction = MotorDirection.Clockwise
+            direction = MotorDirection.Clockwise
         } else {
-            let direction = MotorDirection.CounterClockwise
+            direction = MotorDirection.CounterClockwise
         }
-        if (value != null) {
-            switch (unit) {
-                case MoveUnit.Rotations:
-                    MotorCounter = 0
-                    MotorCounterMax = value * 80 - 8
-                    runMotor(motor, direction)
-                    while (MotorCounter < MotorCounterMax) {
-                        basic.pause(1)
-                    }
-                    break;
-                case MoveUnit.Seconds:
-                    runMotor(motor, direction)
-                    basic.pause(value * 1000)
-                    stopMotor(motor)
-                    break;
+        if (value != 0) {
+            MotorCounter = 0
+            MotorCounterMax = value * 80 - 8
+            motorSpeed(MotorPick.MotorA, Math.abs(speed))
+            runMotor(motor, direction)
+            while (MotorCounter < MotorCounterMax) {
+                basic.pause(1)
             }
+            stopMotor(MotorPick.MotorA)
         }
     }
     /**
      * Graus de rotação do servo motor
      */
-    //%block="girar servo motor %sign %degrees"
+    //%block="girar servo motor %motor %degrees com velocidade %speed\\%"
     //%group='Servo Motor'
-    export function runServoDegrees(sign: MathSign, degrees: ServoDegrees) {
+    //%speed.shadow="speedPicker"
+    export function runServoDegrees(motor: MotorPick, degrees: ServoDegrees, speed:number) {
 
     }
 }
