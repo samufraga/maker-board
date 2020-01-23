@@ -1,8 +1,3 @@
-/*
-ENA=P8, IN1=P1, IN2=P2
-ENB=P13, IN3=P14, IN4=P15
-*/
-
 enum MotorDirection {
     //% block="direto"
     Clockwise,
@@ -183,7 +178,7 @@ namespace MakerBoard {
         else {
             pins.digitalWritePin(DigitalPin.P19, 1)
             pins.digitalWritePin(DigitalPin.P20, 1)
-            pins.digitalWritePin(DigitalPin.P2, 13)
+            pins.digitalWritePin(DigitalPin.P2, 1)
         }
     }
     /**
