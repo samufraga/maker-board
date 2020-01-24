@@ -78,7 +78,7 @@ namespace MakerBoard {
 
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P11, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
@@ -86,7 +86,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P11, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
@@ -94,7 +94,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P2, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
@@ -102,7 +102,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P2, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
@@ -110,7 +110,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P13, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
@@ -118,7 +118,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P13, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
@@ -126,7 +126,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P14, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
@@ -134,7 +134,7 @@ namespace MakerBoard {
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P14, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
         MotorCounter += 1
-        if (MotorCounter >= MotorCounterMax) {
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
