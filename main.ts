@@ -39,19 +39,17 @@ enum ServoDegrees {
 //% color="#2695B5" weight=100 icon="\uf1b0" block="Escola 4.0"
 //% groups=['Motores', 'Servo Motor']
 namespace MakerBoard {
-    let MotorCounterA = 0
-    let MotorCounterMaxA = 0
-    let MotorCounterB = 0
-    let MotorCounterMaxB = 0
+    let MotorCounter = 0
+    let MotorCounterMax = 0
 
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
         if (motor == MotorPick.MotorA) {
             if (direction == MotorDirection.Clockwise) {
-                pins.digitalWritePin(DigitalPin.P5, 0)
-                pins.digitalWritePin(DigitalPin.P0, 1)
-            } else {
-                pins.digitalWritePin(DigitalPin.P5, 1)
                 pins.digitalWritePin(DigitalPin.P0, 0)
+                pins.digitalWritePin(DigitalPin.P5, 1)
+            } else {
+                pins.digitalWritePin(DigitalPin.P0, 1)
+                pins.digitalWritePin(DigitalPin.P5, 0)
             }
         } else {
             if (direction == MotorDirection.Clockwise) {
@@ -66,10 +64,10 @@ namespace MakerBoard {
 
     export function setServoSensor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.setPull(DigitalPin.P11, PinPullMode.PullNone)
             pins.setPull(DigitalPin.P2, PinPullMode.PullNone)
-            pins.setEvents(DigitalPin.P11, PinEventType.Edge)
+            pins.setPull(DigitalPin.P11, PinPullMode.PullNone)
             pins.setEvents(DigitalPin.P2, PinEventType.Edge)
+            pins.setEvents(DigitalPin.P11, PinEventType.Edge)            
         } else {
             pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
             pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
@@ -79,65 +77,65 @@ namespace MakerBoard {
     }
 
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P11, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
-        MotorCounterA += 1
-        if (MotorCounterA == MotorCounterMaxA) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P11, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
-        MotorCounterA += 1
-        if (MotorCounterA == MotorCounterMaxA) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P2, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
-        MotorCounterA += 1
-        if (MotorCounterA == MotorCounterMaxA) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P2, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
-        MotorCounterA += 1
-        if (MotorCounterA == MotorCounterMaxA) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P11, PinEventType.None)
             pins.setEvents(DigitalPin.P2, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P13, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
-        MotorCounterB += 1
-        if (MotorCounterB == MotorCounterMaxB) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
         }
     })
-    
+
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P13, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
-        MotorCounterB += 1
-        if (MotorCounterB == MotorCounterMaxB) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
         }
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P14, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
-        MotorCounterB += 1
-        if (MotorCounterB == MotorCounterMaxB) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
         }
     })
     control.onEvent(EventBusSource.MICROBIT_ID_IO_P14, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
-        MotorCounterB += 1
-        if (MotorCounterB == MotorCounterMaxB) {
+        MotorCounter += 1
+        if (MotorCounter == MotorCounterMax) {
             pins.setEvents(DigitalPin.P13, PinEventType.None)
             pins.setEvents(DigitalPin.P14, PinEventType.None)
             stopMotor(MotorPick.MotorB)
@@ -212,23 +210,14 @@ namespace MakerBoard {
         } else {
             direction = MotorDirection.CounterClockwise
         }
-        if (value != 0) {
-            MotorCounterA = 0
-            MotorCounterMaxA = value * 80 - 8
-            MotorCounterB = 0
-            MotorCounterMaxB = value * 80 - 8
-            motorSpeed(motor, Math.abs(speed))
-            runMotor(motor, direction)
-            if (motor==MotorPick.MotorA) {
-                while (MotorCounterA < MotorCounterMaxA) {
-                    basic.pause(1)
-                }                
-            }else{
-                while (MotorCounterB < MotorCounterMaxB) {
-                    basic.pause(1)
-                }
-            }
+        MotorCounter = 0
+        MotorCounterMax = value * 80 - 8
+        motorSpeed(motor, Math.abs(speed))
+        runMotor(motor, direction)
+        while (MotorCounter < MotorCounterMax) {
+            basic.pause(1)
         }
+        stopMotor(motor)
     }
     /**
      * Gira o servo motor por uma quantidade limitada de graus
