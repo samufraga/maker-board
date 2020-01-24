@@ -36,7 +36,7 @@ enum ServoDegrees {
     d60 = 8
 }
 
-//% color="#008800" weight=100 icon="\uf1b0" block="Escola 4.0"
+//% color="#2695B5" weight=100 icon="\uf1b0" block="Escola 4.0"
 //% groups=['Motores', 'Servo Motor']
 namespace MakerBoard {
     let MotorCounter = 0
@@ -218,7 +218,7 @@ namespace MakerBoard {
             while (MotorCounter < MotorCounterMax) {
                 basic.pause(1)
             }
-            
+
         }
     }
     /**
