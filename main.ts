@@ -36,14 +36,14 @@ enum ServoDegrees {
     d60 = 8
 }
 
-//% color="#2695B5" weight=100 icon="\uf1b0" block="Escola 4.0"
+//% color="#3f84af" weight=100 icon="\uf1b0" block="Escola 4.0"
 //% groups=['Motores', 'Servo Motor']
 namespace MakerBoard {
     let MotorCounter = 0
     let MotorCounterMax = 0
 
     export function runMotor(motor: MotorPick, direction: MotorDirection) {
-        if (motor == MotorPick.MotorA) {
+        if (motor == MotorPick.MotorB) {
             if (direction == MotorDirection.Clockwise) {
                 pins.digitalWritePin(DigitalPin.P0, 0)
                 pins.digitalWritePin(DigitalPin.P5, 1)
@@ -53,21 +53,21 @@ namespace MakerBoard {
             }
         } else {
             if (direction == MotorDirection.Clockwise) {
-                pins.digitalWritePin(DigitalPin.P15, 0)
-                pins.digitalWritePin(DigitalPin.P16, 1)
+                pins.digitalWritePin(DigitalPin.P1, 0)
+                pins.digitalWritePin(DigitalPin.P8, 1)
             } else {
-                pins.digitalWritePin(DigitalPin.P15, 1)
-                pins.digitalWritePin(DigitalPin.P16, 0)
+                pins.digitalWritePin(DigitalPin.P1, 1)
+                pins.digitalWritePin(DigitalPin.P8, 0)
             }
         }
     }
 
     export function setServoSensor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.setPull(DigitalPin.P2, PinPullMode.PullNone)
-            pins.setPull(DigitalPin.P11, PinPullMode.PullNone)
-            pins.setEvents(DigitalPin.P2, PinEventType.Edge)
-            pins.setEvents(DigitalPin.P11, PinEventType.Edge)            
+            pins.setPull(DigitalPin.P15, PinPullMode.PullNone)
+            pins.setPull(DigitalPin.P16, PinPullMode.PullNone)
+            pins.setEvents(DigitalPin.P15, PinEventType.Edge)
+            pins.setEvents(DigitalPin.P16, PinEventType.Edge)
         } else {
             pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
             pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
@@ -76,35 +76,35 @@ namespace MakerBoard {
         }
     }
 
-    control.onEvent(EventBusSource.MICROBIT_ID_IO_P11, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P15, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
-            pins.setEvents(DigitalPin.P11, PinEventType.None)
-            pins.setEvents(DigitalPin.P2, PinEventType.None)
+            pins.setEvents(DigitalPin.P15, PinEventType.None)
+            pins.setEvents(DigitalPin.P16, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
-    control.onEvent(EventBusSource.MICROBIT_ID_IO_P11, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P15, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
-            pins.setEvents(DigitalPin.P11, PinEventType.None)
-            pins.setEvents(DigitalPin.P2, PinEventType.None)
+            pins.setEvents(DigitalPin.P15, PinEventType.None)
+            pins.setEvents(DigitalPin.P16, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
-    control.onEvent(EventBusSource.MICROBIT_ID_IO_P2, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P16, EventBusValue.MICROBIT_PIN_EVT_RISE, function () {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
-            pins.setEvents(DigitalPin.P11, PinEventType.None)
-            pins.setEvents(DigitalPin.P2, PinEventType.None)
+            pins.setEvents(DigitalPin.P15, PinEventType.None)
+            pins.setEvents(DigitalPin.P16, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
-    control.onEvent(EventBusSource.MICROBIT_ID_IO_P2, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
+    control.onEvent(EventBusSource.MICROBIT_ID_IO_P16, EventBusValue.MICROBIT_PIN_EVT_FALL, function () {
         MotorCounter += 1
         if (MotorCounter == MotorCounterMax) {
-            pins.setEvents(DigitalPin.P11, PinEventType.None)
-            pins.setEvents(DigitalPin.P2, PinEventType.None)
+            pins.setEvents(DigitalPin.P15, PinEventType.None)
+            pins.setEvents(DigitalPin.P16, PinEventType.None)
             stopMotor(MotorPick.MotorA)
         }
     })
@@ -171,14 +171,14 @@ namespace MakerBoard {
     //% group='Motores'      weight=50
     export function stopMotor(motor: MotorPick) {
         if (motor == MotorPick.MotorA) {
-            pins.digitalWritePin(DigitalPin.P0, 1)
             pins.digitalWritePin(DigitalPin.P1, 1)
-            pins.digitalWritePin(DigitalPin.P5, 1)
+            pins.digitalWritePin(DigitalPin.P8, 1)
+            pins.digitalWritePin(DigitalPin.P11, 1)
         }
         else {
-            pins.digitalWritePin(DigitalPin.P8, 1)
-            pins.digitalWritePin(DigitalPin.P15, 1)
-            pins.digitalWritePin(DigitalPin.P16, 1)
+            pins.digitalWritePin(DigitalPin.P0, 1)
+            pins.digitalWritePin(DigitalPin.P5, 1)
+            pins.digitalWritePin(DigitalPin.P2, 1)
         }
     }
     /**
@@ -189,9 +189,9 @@ namespace MakerBoard {
     //% velocidade.min=0 velocidade.max=100
     export function motorSpeed(motor: MotorPick, velocidade: number) {
         if (motor == MotorPick.MotorA) {
-            pins.analogWritePin(AnalogPin.P1, 10 * velocidade)
+            pins.analogWritePin(AnalogPin.P11, 10 * velocidade)
         } else {
-            pins.analogWritePin(AnalogPin.P8, 10 * velocidade)
+            pins.analogWritePin(AnalogPin.P2, 10 * velocidade)
         }
     }
 
