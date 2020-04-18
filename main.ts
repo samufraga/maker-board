@@ -36,7 +36,7 @@ enum ServoDegrees {
     d60 = 8
 }
 
-//% color="#3f84af" weight=100 icon="\uf1b0" block="Escola 4.0"
+//% color="#3f84af" weight=100 icon="\uf1b0" block="Escola 4.0_old"
 //% groups=['Motores', 'Servo Motor']
 namespace MakerBoard {
     let MotorCounter = 0
